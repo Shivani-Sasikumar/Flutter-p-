@@ -1,41 +1,67 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
-  runApp(
-    MyApp()
-    
+  return runApp(
+    MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 216, 130, 99),
+        appBar: AppBar(
+          title: Center(child: Text('Dicee')),
+          backgroundColor: Colors.green,
+        ),
+        body: DicePage(),
+      ),
+    ),
   );
 }
-class MyApp extends StatelessWidget{
+
+class DicePage extends StatefulWidget {
+  const DicePage({super.key});
+
+  @override
+  State<DicePage> createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  
+  int leftDiceNumber = 1;
+  int rightDiceNumber = 1;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 67, 119, 114),
-        body: SafeArea(
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 50,
-                //backgroundColor: Colors.red,
-                backgroundImage: NetworkImage('https://static.vecteezy.com/system/resources/thumbnails/032/176/191/small/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg'),
+    return Center(
+      child: Row(
+        children: [
+          Expanded(
+            child: TextButton(
+              onPressed: (){
+                setState(() {
+                  leftDiceNumber=Random().nextInt(6)+1;
+                  rightDiceNumber=Random().nextInt(6)+1;
+                  
+                });
+              },
+              child: Image.asset('images/dice$leftDiceNumber.png'
               ),
-              Text(
-                'Hey There',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],
-          )
-        ),
+            ),
+          ),
+          Expanded(
+            child: TextButton(
+              onPressed: (){
+                setState(() {
+                  rightDiceNumber=Random().nextInt(6)+1;
+                  leftDiceNumber=Random().nextInt(6)+1;
+                });
+              },
+              child: Image.asset('images/dice$rightDiceNumber.png'
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+
 
